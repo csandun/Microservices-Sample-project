@@ -35,7 +35,7 @@ namespace Jobs.Api
                 {
                     return Bus.Factory.CreateUsingRabbitMq(sbc =>
                     {
-                        sbc.Host("rabbitmq", "/", h =>
+                        var host = sbc.Host(new Uri("rabbitmq://localhost:5672/"), h =>
                         {
                             h.Username("guest");
                             h.Password("guest");
@@ -65,9 +65,9 @@ namespace Jobs.Api
 
             app.UseMvc();
 
-            //var bus = ApplicationContainer.Resolve<IBusControl>();
-            //var busHandle = TaskUtil.Await(() => bus.StartAsync());
-            //lifetime.ApplicationStopping.Register(() => busHandle.Stop());
+            var bus = ApplicationContainer.Resolve<IBusControl>();
+            var busHandle = TaskUtil.Await(() => bus.StartAsync());
+            lifetime.ApplicationStopping.Register(() => busHandle.Stop());
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Applicants.Api
                 {
                     var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
                     {
-                        var host = cfg.Host(new Uri("rabbitmq://rabbitmq/"), h =>
+                        var host = cfg.Host(new Uri("rabbitmq://localhost:5672/"), h =>
                         {
                             h.Username("guest");
                             h.Password("guest");
@@ -75,9 +75,9 @@ namespace Applicants.Api
 
             app.UseMvc();
 
-            //var bus = ApplicationContainer.Resolve<IBusControl>();
-           // var busHandle = TaskUtil.Await(() => bus.StartAsync());
-           // lifetime.ApplicationStopping.Register(() => busHandle.Stop());
+            var bus = ApplicationContainer.Resolve<IBusControl>();
+            var busHandle = TaskUtil.Await(() => bus.StartAsync());
+            lifetime.ApplicationStopping.Register(() => busHandle.Stop());
         }
     }
 }

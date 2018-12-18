@@ -39,8 +39,8 @@ namespace Identity.Api
             //penalty.
             services.AddSingleton(sp =>
             {
-                var configuration = new ConfigurationOptions {ResolveDns = true};
-                configuration.EndPoints.Add(Configuration["RedisHost"]);
+                var configuration = new ConfigurationOptions { ResolveDns = true };
+                configuration.EndPoints.Add("localhost");
                 return ConnectionMultiplexer.Connect(configuration);
             });
 
@@ -54,7 +54,7 @@ namespace Identity.Api
                 {
                     var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
                     {
-                        var host = cfg.Host(new Uri("rabbitmq://rabbitmq/"), h =>
+                        var host = cfg.Host(new Uri("rabbitmq://localhost:5672/"), h =>
                         {
                             h.Username("guest");
                             h.Password("guest");
