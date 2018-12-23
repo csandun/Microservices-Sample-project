@@ -4,10 +4,10 @@ Sample project for getting off the ground with ASP.NET Core, Docker and Microser
 This project covers main microservices patterns and concepts
 - [x] Bounded Context
 - [x] Microservices basic modal
-- [] Asynchronous microservice patterns (Bakcground shedular)
+- [ ] Asynchronous microservice patterns (Bakcground shedular)
 - [x] Centralized logging
 - [x] HealthCheck
-- [] Resilliency - Circuit breakers / Retry etc...
+- [ ] Resilliency - Circuit breakers / Retry etc...
 
 
 
