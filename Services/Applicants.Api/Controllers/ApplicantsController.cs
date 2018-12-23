@@ -9,6 +9,7 @@ using Applicants.Api.Models;
 
 namespace Applicants.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class ApplicantsController : Controller
     {
@@ -18,36 +19,16 @@ namespace Applicants.Api.Controllers
             _applicantRepository = applicantRepository;
         }
 
-        // GET api/values
+        /// <summary>
+        /// Gets applicants list
+        /// </summary>
+        /// <returns>Returns applicants list</returns>      
+        /// <response code="200">Returns applicants list</response>
         [HttpGet]
+        [ProducesResponseType(200)]
         public async Task<IEnumerable<Applicant>> Get()
         {
             return await _applicantRepository.GetAll();
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

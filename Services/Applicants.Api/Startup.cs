@@ -9,7 +9,9 @@ using Applicants.Api.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MassTransit;
-
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
 
 namespace Applicants.Api
 {
@@ -27,6 +29,32 @@ namespace Applicants.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            #region swagger configurations
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "dotnetgigs - Applicants API",
+                    Description = "Applicants api",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "Chathuranga Sandun",
+                        Email = "wacsk19921002@gmail.com",
+                        Url = "https://www.linkedin.com/in/csandun/"
+                    }
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
+           
+            #endregion
+
             services.AddMvc();
             services.AddScoped<IApplicantRepository>(c => new ApplicantRepository(Configuration["ConnectionString"]));
 
@@ -62,6 +90,7 @@ namespace Applicants.Api
             builder.Populate(services);
             ApplicationContainer = builder.Build();
 
+
             return new AutofacServiceProvider(ApplicationContainer); 
         }
 
@@ -72,6 +101,17 @@ namespace Applicants.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseMvc();
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Applicants.Api
 {
+#pragma warning disable CS1591
     public class Program
     {
         public static void Main(string[] args)
@@ -16,4 +17,6 @@ namespace Applicants.Api
                 .UseStartup<Startup>()
                 .Build();
     }
+
+#pragma warning restore CS1591
 }
