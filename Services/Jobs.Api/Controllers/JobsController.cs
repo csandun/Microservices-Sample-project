@@ -6,6 +6,7 @@ using Jobs.Api.Models;
 using Jobs.Api.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Jobs.api.Controllers
 {
@@ -14,18 +15,24 @@ namespace Jobs.api.Controllers
     {
         private readonly IJobRepository _jobRepository;
         private readonly IBus _bus;
+        private readonly ILogger<JobsController> _logger;
 
-        public JobsController(IJobRepository jobRepository, IBus bus)
+        public JobsController(IJobRepository jobRepository, IBus bus, ILogger<JobsController> logger)
         {
             _jobRepository = jobRepository;
             _bus = bus;
+            this._logger = logger;
+
         }
 
         // GET api/jobs
         [HttpGet]
         public async Task<IEnumerable<Job>> Get()
         {
-            return await _jobRepository.GetAll();
+            this._logger.LogInformation("start action api/jobs");
+            var jobs = await _jobRepository.GetAll();
+            this._logger.LogInformation("stop action api/jobs");
+            return jobs;
         }
 
         // GET api/jobs/5

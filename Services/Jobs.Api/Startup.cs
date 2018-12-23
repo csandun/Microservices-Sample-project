@@ -17,10 +17,12 @@ using Swashbuckle.AspNetCore.Swagger;
 namespace Jobs.Api
 {
     public class Startup
-    {
+    {        
         public Startup(IConfiguration configuration)
         {
-            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
             Configuration = configuration;
         }
 
@@ -37,7 +39,7 @@ namespace Jobs.Api
             });
 
             services.AddMvc();
-            services.AddScoped<IJobRepository>(c => new JobRepository(Configuration["ConnectionString"]));
+            services.AddScoped<IJobRepository>(c => new JobRepository(Configuration["ConnectionString"] ));
 
             var builder = new ContainerBuilder();
             builder.Register(c =>

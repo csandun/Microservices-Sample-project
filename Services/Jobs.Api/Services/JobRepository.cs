@@ -6,22 +6,26 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Jobs.Api.Models;
 using Dapper;
+using Microsoft.Extensions.Logging;
 
 namespace Jobs.Api.Services
 {
     public class JobRepository : IJobRepository
     {
         private readonly string _connectionString;
+        //private readonly ILogger<JobRepository> _logger;
 
-        public JobRepository(string connectionString)
+        public JobRepository(string connectionString/*, ILogger<JobRepository> logger*/ )
         {
             _connectionString = connectionString;
+            //this._logger = logger;
         }
 
         public IDbConnection Connection => new SqlConnection(_connectionString);
 
         public async Task<IEnumerable<Job>> GetAll()
         {
+            //this._logger.LogInformation("get jobs repo");
             using (var dbConnection = Connection)
             {
                 dbConnection.Open();
