@@ -26,11 +26,8 @@ It should be fairly cross-platform friendly to get up and running but was develo
 
 4. With all services running in the debugger you can hit the web app in your browser at **localhost:8080** and set breakpoints in any of the projects to debug directly.
 
-# Known Issues
-
-When running on windows ensure the line ending type for the <a href="https://github.com/mmacneil/ASPNETCoreDockerMicroservices/blob/master/Database/SqlCmdStartup.sh" target="_blank">Database/SqlCmdStartup.sh</a> remains as `LF`.  When opening/saving this file in VSCode it can get switched to `CRLF` in which case the script won't run and the required databases never get created.  If the databases aren't created check `PS> docker logs mssql-linux` and the presence of an error at the top such as _sleep: invalid time interval '25\r'_.
-
-I have also noticed, on first run of newly created containers that when starting services that use Rabbit a connection exception will be thrown when starting the project in the debugger for the first time.  Start it again and things seem to work fine from then on.
+[x]vdfdsf
+[]fdsfd
 
 
 
