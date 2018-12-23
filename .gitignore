@@ -317,3 +317,7 @@ OpenCover/
 
 # Azure Stream Analytics local run output 
 ASALocalRun/
+/Web/logs
+/Services/Jobs.Api/logs
+/Services/Identity.Api/logs
+/Services/Applicants.Api/logs
