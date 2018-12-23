@@ -26,8 +26,8 @@ It should be fairly cross-platform friendly to get up and running but was develo
 
 4. With all services running in the debugger you can hit the web app in your browser at **localhost:8080** and set breakpoints in any of the projects to debug directly.
 
-[x]vdfdsf
-[]fdsfd
+- [x] vdfdsf
+- [] fdsfd
 
 
 
